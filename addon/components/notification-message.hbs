@@ -12,7 +12,15 @@
 >
   {{#if this.validType}}
     <div class="ecn_notification_icon">
-      {{component (concat "ember-cli-notifications/icon/" this.validType)}}
+      {{#if this.isInfo}}
+        <EmberCliNotifications::Icon::Info />
+      {{else if this.isSuccess}}
+        <EmberCliNotifications::Icon::Success />
+      {{else if this.isWarning}}
+        <EmberCliNotifications::Icon::Warning />
+      {{else if this.isError}}
+        <EmberCliNotifications::Icon::Error />
+      {{/if}}
     </div>
   {{/if}}
 

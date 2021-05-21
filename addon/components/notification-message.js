@@ -46,6 +46,26 @@ export default class NotificationMessage extends Component {
     return `ecn_notification-${this.validType || 'unknown'}`;
   }
 
+  @computed('validType')
+  get isInfo() {
+    return this.validType === 'info';
+  }
+
+  @computed('validType')
+  get isSuccess() {
+    return this.validType === 'success';
+  }
+
+  @computed('validType')
+  get isWarning() {
+    return this.validType === 'warning';
+  }
+
+  @computed('validType')
+  get isError() {
+    return this.validType === 'error';
+  }
+
   // Apply the clear animation duration rule inline
   @computed('paused', 'notification.clearDuration')
   get notificationClearDuration() {
