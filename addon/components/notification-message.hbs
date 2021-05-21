@@ -1,0 +1,35 @@
+<div
+  class="
+    ecn_notification
+    {{this.dismissClass}}
+    {{this.clickableClass}}
+    {{this.processedType}}
+    {{@notification.cssClasses}}
+  "
+  data-test-notification-message={{@notification.type}}
+  {{on "mouseenter" this.handleMouseEnter}}
+  {{on "mouseleave" this.handleMouseLeave}}
+>
+  {{#if this.validType}}
+    <div class="ecn_notification_icon">
+      {{component (concat "ember-cli-notifications/icon/" this.validType)}}
+    </div>
+  {{/if}}
+
+  <button type="button" class="ecn_notification_content" {{on "click" this.handleOnClick}} data-message>
+    {{this.message}}
+  </button>
+
+  <button
+    type="button"
+    class="ecn_notification_close"
+    aria-label="Dismiss this notification"
+    {{on "click" this.removeNotification}}
+  >
+    <EmberCliNotifications::Icon::Close />
+  </button>
+
+  {{#if @notification.autoClear}}
+    <div class="ecn_notification_countdown" style={{this.notificationClearDuration}}></div>
+  {{/if}}
+</div>
