@@ -1,20 +1,15 @@
 /* eslint-disable ember/no-classic-classes, prettier/prettier, ember/no-get */
 import Service from '@ember/service';
-import { assign, merge } from '@ember/polyfills';
 import { A } from '@ember/array';
-import EmberObject, { set } from '@ember/object';
-import { run } from '@ember/runloop';
+import { assign } from '@ember/polyfills';
+import { cancel, later } from '@ember/runloop';
 import config from 'ember-get-config';
-
-const notificationAssign = assign || merge;
+import EmberObject, { set } from '@ember/object';
 
 const globals = config['ember-cli-notifications'] || {}; // Import app config object
 
-export default Service.extend({
-  init() {
-    this._super(...arguments);
-    this.set('content', A());
-  },
+export default class NotificationsService extends Service {
+  content = A();
 
   // Method for adding a notification
   addNotification(options) {
@@ -42,36 +37,36 @@ export default Service.extend({
     }
 
     return notification;
-  },
+  }
 
   // Helper methods for each type of notification
   error(message, options) {
-    return this.addNotification(notificationAssign({
+    return this.addNotification(assign({
       message: message,
       type: 'error'
     }, options));
-  },
+  }
 
   success(message, options) {
-    return this.addNotification(notificationAssign({
+    return this.addNotification(assign({
       message: message,
       type: 'success'
     }, options));
-  },
+  }
 
   info(message, options) {
-    return this.addNotification(notificationAssign({
+    return this.addNotification(assign({
       message: message,
       type: 'info'
     }, options));
-  },
+  }
 
   warning(message, options) {
-    return this.addNotification(notificationAssign({
+    return this.addNotification(assign({
       message: message,
       type: 'warning'
     }, options));
-  },
+  }
 
   removeNotification(notification) {
     if (!notification) {
@@ -81,15 +76,15 @@ export default Service.extend({
     notification.set('dismiss', true);
 
     // Delay removal from DOM for dismissal animation
-    run.later(this, () => {
+    later(this, () => {
       this.content.removeObject(notification);
     }, 500);
-  },
+  }
 
   setupAutoClear(notification) {
     notification.set('startTime', Date.now());
 
-    const timer = run.later(this, () => {
+    const timer = later(this, () => {
       // Hasn't been closed manually
       if (this.content.indexOf(notification) >= 0) {
           this.removeNotification(notification);
@@ -97,30 +92,30 @@ export default Service.extend({
     }, notification.get('remaining'));
 
     notification.set('timer', timer);
-  },
+  }
 
   pauseAutoClear(notification) {
-    run.cancel(notification.get('timer'));
+    cancel(notification.get('timer'));
 
     const elapsed = Date.now() - notification.get('startTime');
     const remaining = notification.get('clearDuration') - elapsed;
 
     notification.set('remaining', remaining);
-  },
+  }
 
   clearAll() {
-    this.get('content').forEach(notification => {
+    this.content.forEach(notification => {
       this.removeNotification(notification);
     });
 
     return this;
-  },
+  }
 
   setDefaultAutoClear(autoClear) {
     set(globals, 'autoClear', autoClear);
-  },
+  }
 
   setDefaultClearDuration(clearDuration) {
     set(globals, 'clearDuration', clearDuration);
   }
-});
+}
