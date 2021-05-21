@@ -1,9 +1,1 @@
-<div
-  class="ecn_container {{this.positionClass}}"
-  style={{this.inlineStyle}}
-  data-test-notification-container
->
-  {{#each this.notifications.content as |notification|}}
-    <NotificationMessage @notification={{notification}} />
-  {{/each}}
-</div>
+{{yield}}
