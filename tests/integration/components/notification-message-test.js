@@ -21,7 +21,7 @@ module('Integration | Component | notification message', function(hooks) {
 
     await settled();
 
-    await click('.c-notification__content');
+    await click('.ecn_notification_content');
   });
 
   test('clicking the notification close button does not call the callback defined on the notification message', async function(assert) {
@@ -37,7 +37,7 @@ module('Integration | Component | notification message', function(hooks) {
     });
 
     await settled();
-    await click('.c-notification__close');
+    await click('.ecn_notification_close');
     await settled();
   });
 });

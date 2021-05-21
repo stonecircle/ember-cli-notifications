@@ -2,9 +2,8 @@
   --ecn-container-position: 10px;
   --ecn-container-width: 80%;
   --ecn-container-max-with: 400px;
+  --ecn-container-z-index: 1060;
 
-  --ecn-icon-width: 30px;
-  --ecn-icon-position: 10px;
   --ecn-icon-color: rgba(255, 255, 255, 0.74);
   --ecn-icon-lighten-background: rgba(255, 255, 255, 0.2);
   --ecn-countdown-lighten-background: rgba(255, 255, 255, 0.4);
@@ -17,51 +16,68 @@
   --ecn-orange: #ff7f48;
   --ecn-red: #e74c3c;
 
+  --ecn-error: var(--ecn-red);
+  --ecn-info: var(--ecn-blue);
+  --ecn-success: var(--ecn-green);
+  --ecn-warning: var(--ecn-orange);
+
   /* Spacing */
-  --ecn-spacing-1: .5rem;
-  --ecn-spacing-2: 1rem;
+  --ecn-spacing-1: 0.5em;
+  --ecn-spacing-2: 1em;
+
+  /* Durations */
+  --ecn-animation-in-duration: 180ms;
+  --ecn-animation-out-duration: 250ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --ecn-animation-in-duration: 0;
+    --ecn-animation-out-duration: 0;
+  }
 }
 
 /* Base */
-.ember-cli-notifications-notification__container {
+.ecn_container {
   position: fixed;
   margin: 0 auto;
+  z-index: var(--ecn-container-z-index);
   width: var(--ecn-container-width);
   max-width: var(--ecn-container-max-with);
 }
 
 /* Position */
-.ember-cli-notifications-notification__container--top {
+.ecn_container-top {
   top: var(--ecn-container-position);
   right: 0;
   left: 0;
 }
 
-.ember-cli-notifications-notification__container--top-left {
+.ecn_container-top-left {
   top: var(--ecn-container-position);
   right: auto;
   left: var(--ecn-container-position);
 }
 
-.ember-cli-notifications-notification__container--top-right {
+.ecn_container-top-right {
   top: var(--ecn-container-position);
   right: var(--ecn-container-position);
   left: auto;
 }
 
-.ember-cli-notifications-notification__container--bottom {
+.ecn_container-bottom {
   right: 0;
   bottom: var(--ecn-container-position);
   left: 0;
 }
 
-.ember-cli-notifications-notification__container--bottom-left {
+.ecn_container-bottom-left {
   right: auto;
   bottom: var(--ecn-container-position);
   left: var(--ecn-container-position);
 }
 
-.ember-cli-notifications-notification__container--bottom-right {
+.ecn_container-bottom-right {
   right: var(--ecn-container-position);
   bottom: var(--ecn-container-position);
   left: auto;

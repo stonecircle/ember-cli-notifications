@@ -1,5 +1,5 @@
 {{! template-lint-disable link-rel-noopener no-action no-curly-component-invocation no-implicit-this no-unbalanced-curlies require-button-type require-input-label }}
-{{notification-container position=position zindex=zindex}}
+{{notification-container position=this.position}}
 <div class="bg-blue white py4">
   <div class="max-width-4 mx-auto px2">
     <div class="mb3">
@@ -28,7 +28,7 @@
     <p>Include the container component in your template.</p>
     <p>Optionally, change the position or z-index value of the notifications container.</p>
     <p class="h5"><i>Default value is top</i></p>
-    <CodeBlock @language="handlebars">&#123;&#123;notification-container position="top-right" zindex="9999"&#125;&#125;</CodeBlock>
+    <CodeBlock @language="handlebars">&#123;&#123;notification-container position="top-right"&#125;&#125;</CodeBlock>
 
     <p>Inject the notifications service where required.</p>
     <CodeBlock @language="js">import Controller from '@ember/controller';
@@ -79,10 +79,10 @@ this.notifications.warning('You have unsaved changes');
       <div class="mxn2 mb3">
         <div class="px2">
           <h4>Message</h4>
-          {{input class="input" type="text" value=computedMessage}}
+          {{input class="input" type="text" value=this.computedMessage}}
           <div class="mt1">
             <label class="h5">
-              {{input type="checkbox" checked=htmlContent}}
+              {{input type="checkbox" checked=this.htmlContent}}
               Enable HTML content
             </label>
           </div>
@@ -92,25 +92,25 @@ this.notifications.warning('You have unsaved changes');
           <div data-test-radio-html class="sm-flex mxn1">
             <div class="px1 mb1">
               <label>
-                {{radio-button value="success" checked=type}}
+                {{radio-button value="success" checked=this.type}}
                 Success
               </label>
             </div>
             <div class="px1 mb1">
               <label>
-                {{radio-button value="info" checked=type}}
+                {{radio-button value="info" checked=this.type}}
                 Info
               </label>
             </div>
             <div class="px1 mb1">
               <label>
-                {{radio-button value="error" checked=type}}
+                {{radio-button value="error" checked=this.type}}
                 Error
               </label>
             </div>
             <div class="px1 mb1">
               <label>
-                {{radio-button value="warning" checked=type}}
+                {{radio-button value="warning" checked=this.type}}
                 Warning
               </label>
             </div>
@@ -121,37 +121,37 @@ this.notifications.warning('You have unsaved changes');
           <div class="sm-flex mxn1">
             <div class="px1 mb1">
               <label>
-                {{radio-button value="top" checked=position}}
+                {{radio-button value="top" checked=this.position}}
                 top
               </label>
             </div>
             <div class="px1 mb1">
               <label>
-                {{radio-button value="top-left" checked=position}}
+                {{radio-button value="top-left" checked=this.position}}
                 top-left
               </label>
             </div>
             <div class="px1 mb1">
               <label>
-                {{radio-button value="top-right" checked=position}}
+                {{radio-button value="top-right" checked=this.position}}
                 top-right
               </label>
             </div>
             <div class="px1 mb1">
               <label>
-                {{radio-button value="bottom" checked=position}}
+                {{radio-button value="bottom" checked=this.position}}
                 bottom
               </label>
             </div>
             <div class="px1 mb1">
               <label>
-                {{radio-button value="bottom-left" checked=position}}
+                {{radio-button value="bottom-left" checked=this.position}}
                 bottom-left
               </label>
             </div>
             <div class="px1 mb1">
               <label>
-                {{radio-button value="bottom-right" checked=position}}
+                {{radio-button value="bottom-right" checked=this.position}}
                 bottom-right
               </label>
             </div>
@@ -194,18 +194,18 @@ this.notifications.warning('You have unsaved changes');
         <div class="px2">
           <h4>Clear automatically</h4>
           <label>
-            {{input type="checkbox" checked=autoClear}}
+            {{input type="checkbox" checked=this.autoClear}}
             Enable
           </label>
           <div class="mt1">
             <label class="label">Timeout (ms)</label>
-            {{input class="input" type="number" value=clearDuration disabled=disableTimeoutInput}}
+            {{input class="input" type="number" value=this.clearDuration disabled=this.disableTimeoutInput}}
           </div>
         </div>
         <div class="px2">
           <h4>Clear all</h4>
           <label>
-            {{input type="checkbox" checked=clearAll}}
+            {{input type="checkbox" checked=this.clearAll}}
             Enable
           </label>
         </div>

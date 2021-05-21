@@ -1,26 +1,14 @@
-/* eslint-disable ember/no-classic-components, ember/no-classic-classes, ember/require-tagless-components, prettier/prettier, ember/no-get */
+/* eslint-disable ember/no-computed-properties-in-native-classes, ember/no-classic-components, ember/no-classic-classes, ember/require-tagless-components, prettier/prettier, ember/no-get */
 import Component from '@ember/component';
 import { computed } from '@ember/object';
-import { htmlSafe } from '@ember/template';
 import { inject as service } from '@ember/service';
 
-import layout from '../templates/components/notification-container';
+export default class NotificationContainerComponent extends Component {
+  position = 'top';
+  @service notifications;
 
-export default Component.extend({
-  layout,
-  position: 'top',
-  notifications: service(),
-
-  classNameBindings: ['computedPosition', ':ember-cli-notifications-notification__container'],
-  attributeBindings: ['computedStyle:style', 'position:data-test-notification-container'],
-
-  zindex: '1060',
-
-  computedPosition: computed('position', function() {
-    return `ember-cli-notifications-notification__container--${this.get('position')}`;
-  }),
-
-  computedStyle: computed('zindex', function() {
-    return htmlSafe(`z-index: ${this.get('zindex')};`);
-  })
-});
+  @computed('position')
+  get positionClass() {
+    return `ecn_container-${this.position}`;
+  }
+}
