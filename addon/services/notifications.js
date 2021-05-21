@@ -3,12 +3,13 @@ import Service from '@ember/service';
 import { A } from '@ember/array';
 import { assign } from '@ember/polyfills';
 import { cancel, later } from '@ember/runloop';
-import config from 'ember-get-config';
-import EmberObject, { set } from '@ember/object';
-
-const globals = config['ember-cli-notifications'] || {}; // Import app config object
+import EmberObject from '@ember/object';
+import { getOwner } from '@ember/application';
 
 export default class NotificationsService extends Service {
+  globalsOptions = getOwner(this).resolveRegistration('config:environment')['ember-cli-notifications'] || {};
+  autoClear = this.globalsOptions.autoClear || false;
+  clearDuration = this.globalsOptions.clearDuration || 3200;
   content = A();
 
   // Method for adding a notification
@@ -21,8 +22,8 @@ export default class NotificationsService extends Service {
     const notification = EmberObject.create({
       message: options.message,
       type: options.type || 'info',
-      autoClear: options.autoClear ?? globals.autoClear ?? false,
-      clearDuration: options.clearDuration ?? globals.clearDuration ?? 3200,
+      autoClear: options.autoClear ?? this.autoClear ?? false,
+      clearDuration: options.clearDuration ?? this.clearDuration ?? 3200,
       onClick: options.onClick,
       htmlContent: options.htmlContent || false,
       cssClasses: options.cssClasses
@@ -109,13 +110,5 @@ export default class NotificationsService extends Service {
     });
 
     return this;
-  }
-
-  setDefaultAutoClear(autoClear) {
-    set(globals, 'autoClear', autoClear);
-  }
-
-  setDefaultClearDuration(clearDuration) {
-    set(globals, 'clearDuration', clearDuration);
   }
 }
