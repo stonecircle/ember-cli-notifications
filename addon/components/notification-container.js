@@ -12,9 +12,11 @@ export default Component.extend({
   notifications: service(),
 
   classNameBindings: ['computedPosition', ':ember-cli-notifications-notification__container'],
-  attributeBindings: ['computedStyle:style', 'position:data-test-notification-container'],
+  attributeBindings: ['computedStyle:style', 'position:data-test-notification-container', 'ariaLive:aria-live', 'role'],
 
   zindex: '1060',
+  role: 'status',
+  ariaLive: 'polite',
 
   computedPosition: computed('position', function() {
     return `ember-cli-notifications-notification__container--${this.get('position')}`;

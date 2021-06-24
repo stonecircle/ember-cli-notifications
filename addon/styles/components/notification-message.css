@@ -54,6 +54,8 @@
 .ember-cli-notifications-notification__container .c-notification__close {
   margin-left: var(--ecn-spacing-2);
   align-self: flex-start;
+  background-color: rgba(0,0,0,0);
+  border-width: 0;
   opacity: .74;
   cursor: pointer;
 }
